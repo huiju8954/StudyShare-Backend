@@ -1,0 +1,57 @@
+server:
+  port: 8081
+  servlet:
+    encoding:
+      charset: UTF-8
+      force: true
+    # ✅ [통합] 파일/요청 크기 제한 추가 (노트 파일 첨부 등)
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+  tomcat:
+    # ✅ [통합] HTTP POST 요청의 최대 크기 설정
+    max-http-post-size: 50MB
+
+spring:
+  application:
+    name: SBB
+  devtools:
+    livereload:
+      enabled: true
+    restart:
+      enabled: true
+
+  datasource:
+    # ✅ [통합] 친구 코드는 url에 공백이 있어 제거했습니다.
+    url: jdbc:mysql://localhost:3306/Studyshare?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Seoul&zeroDateTimeBehavior=convertToNull&rewriteBatchedStatements=true
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    # 💡 [유지] 사용자님의 비밀번호 유지
+    username: root
+    password: 1234
+
+
+  ####################################
+  # JPA 설정
+  ####################################
+
+  jpa:
+    open-in-view: true
+    hibernate:
+      ddl-auto: update # ⭐️ 이 값을 create-drop으로 변경
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+  # 💡 [유지] 사용자님의 Spring Security 설정 유지
+  security:
+    user:
+      name: test
+      password: 1111
+      roles: USER
+
+    logging:
+      level:
+        org.springframework.security: DEBUG # Spring Security의 모든 필터 동작을 상세히 출력
